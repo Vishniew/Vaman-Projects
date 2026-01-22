@@ -1,0 +1,9 @@
+# Ignore build and temporary files
+build/
+.vscode/
+.settings/
+sdkconfig
+*.bin
+*.elf
+*.map
+*.hex
