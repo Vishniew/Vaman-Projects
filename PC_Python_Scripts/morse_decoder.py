@@ -1,20 +1,48 @@
-import cv2
-import numpy as np
-import time
+import machine
+import sys
 
-# --- SETUP ---
-cap = cv2.VideoCapture(0) # 0 is usually the built-in webcam
+# Define LEDs - Using GPIO 25, 4, and 5
+led_onboard = machine.Pin(25, machine.Pin.OUT)
+led_ext1 = machine.Pin(4, machine.Pin.OUT)
+led_ext2 = machine.Pin(5, machine.Pin.OUT)
 
-# Morse Code Dictionary
-MORSE_DICT = {
-    ".-": "A", "-...": "B", "-.-.": "C", "-..": "D", ".": "E", "..-.": "F", 
-    "--.": "G", "....": "H", "..": "I", ".---": "J", "-.-": "K", ".-..": "L", 
-    "--": "M", "-.": "N", "---": "O", ".--.": "P", "--.-": "Q", ".-.": "R", 
-    "...": "S", "-": "T", "..-": "U", "...-": "V", ".--": "W", "-..-": "X", 
-    "-.--": "Y", "--..": "Z", ".----": "1", "..---": "2", "...--": "3", 
-    "....-": "4", ".....": "5", "-....": "6", "--...": "7", "---..": "8", 
-    "----.": "9", "-----": "0"
-}
+def reset_leds():
+    led_onboard.value(0)
+    led_ext1.value(0)
+    led_ext2.value(0)
+
+# Initial state
+reset_leds()
+print("Vaman is listening for gestures...")
+
+while True:
+    # Read the full line sent by Python
+    line = sys.stdin.readline().strip()
+    
+    if line:
+        try:
+            count = int(line)
+            
+            if count == 0:
+                reset_leds()
+            elif count == 1:
+                reset_leds()
+                led_onboard.value(1)
+            elif count == 2:
+                reset_leds()
+                led_ext1.value(1)
+            elif count == 3:
+                reset_leds()
+                led_ext2.value(1)
+            elif count >= 4:
+                # Turn everything on for 4 or 5 fingers
+                led_onboard.value(1)
+                led_ext1.value(1)
+                led_ext2.value(1)
+                
+        except ValueError:
+            # In case of any serial noise/junk data
+            continue
 
 # Timing (Matches your Pico C code: DOT=200ms)
 THRESHOLD = 135       # How bright the LED must be (0-255)

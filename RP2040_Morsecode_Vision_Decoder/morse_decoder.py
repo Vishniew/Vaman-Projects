@@ -17,9 +17,9 @@ MORSE_DICT = {
 }
 
 # Timing (Matches your Pico C code: DOT=200ms)
-THRESHOLD = 135       # How bright the LED must be (0-255)
-DOT_MAX_TIME = 0.5    # Max duration for a dot (seconds)
-GAP_LETTER = 0.5      # Silence duration to trigger end of letter
+THRESHOLD = 120       # How bright the LED must be (0-255)
+DOT_MAX_TIME = 0.4    # Max duration for a dot (seconds)
+GAP_LETTER = 0.4      # Silence duration to trigger end of letter
 
 # Variables to track signal
 signal_string = ""
@@ -70,7 +70,7 @@ while True:
     # Visual UI
     box_color = (0, 255, 0) if is_light_on else (0, 0, 255)
     cv2.rectangle(frame, (x1, y1), (x1+roi_size, y1+roi_size), box_color, 2)
-    cv2.putText(frame, f"Msg: {decoded_message}", (20, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 0), 2)
+    cv2.putText(frame, f"Msg: {decoded_message}", (20, 40), cv2.FONT_HERSHEY_TRIPLEX, 1, (139, 0, 0), 2)
     
     cv2.imshow("Pico Morse Decoder", frame)
 

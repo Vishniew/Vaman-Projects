@@ -57,6 +57,16 @@ void output_morse(char c) {
         case 'X': play_morse("-..-"); break;
         case 'Y': play_morse("-.--"); break;
         case 'Z': play_morse("--.."); break;
+        case '0': play_morse("-----"); break;
+        case '1': play_morse(".----"); break;
+        case '2': play_morse("..---"); break;
+        case '3': play_morse("...--"); break;
+        case '4': play_morse("....-"); break;
+        case '5': play_morse("....."); break;
+        case '6': play_morse("-...."); break;
+        case '7': play_morse("--..."); break;
+        case '8': play_morse("---.."); break;
+        case '9': play_morse("----."); break;
         case ' ': sleep_ms(GAP_WORD); break;
         default: break; // Ignore unknown characters
     }
